@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { PageHeader } from "@/components/page-header";
 import { RecentSales } from "@/components/recent-sales";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 function App() {
   return (
     <div className="[--header-height:calc(theme(spacing.14))]">
