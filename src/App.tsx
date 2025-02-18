@@ -2,11 +2,10 @@ import "./App.css";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { PageHeader } from "@/components/page-header";
+import { RecentSales } from "@/components/recent-sales";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 function App() {
   return (
     <div className="[--header-height:calc(theme(spacing.14))]">
@@ -16,11 +15,32 @@ function App() {
           <AppSidebar />
           <SidebarInset>
             <PageHeader />
-            <div className="min-h-[100vh flex flex-1 flex-col gap-4 px-4 pb-4 md:min-h-min">
-              <div className=" grid auto-rows-min gap-4 md:grid-cols-3">
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
+            <div className="flex flex-1 flex-col gap-4 px-4 pb-4">
+              <div className="grid gap-4 lg:grid-cols-3">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Heading</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RecentSales />
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Heading</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RecentSales />
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Heading</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RecentSales />
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </SidebarInset>
