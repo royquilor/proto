@@ -14,6 +14,9 @@ import {
   Workflow,
   Box,
   Settings2,
+  ChevronRight,
+  FileText,
+  Image
 } from "lucide-react";
 import {
   Sidebar,
@@ -26,7 +29,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { OrgSwitcher } from "./org-switcher";
 import { ProjectSwitcher } from "./project-switcher";
 
@@ -64,78 +75,96 @@ const data = {
       status: "Project",
     },
   ],
+  navItems: [
+    {
+      title: "Home",
+      url: "#",
+      icon: Home,
+    },
+    {
+      title: "Tasks",
+      items: [
+        {
+          title: "Interactions",
+          url: "#",
+          icon: MessageSquare,
+        },
+        {
+          title: "Prompts",
+          url: "#",
+          icon: MessageCircle,
+        },
+        {
+          title: "Runs",
+          url: "#",
+          icon: Play,
+        },
+      ]
+    },
+    {
+      title: "Content",
+      items: [
+        {
+          title: "Objects",
+          url: "#",
+          icon: Database,
+          subItems: [
+            {
+              title: "Document part",
+              url: "#",
+              icon: FileText,
+            },
+            {
+              title: "Rendition",
+              url: "#",
+              icon: Image,
+            },
+          ]
+        },
+        {
+          title: "Types",
+          url: "#",
+          icon: FileType,
+        },
+      ]
+    },
+    {
+      title: "Workflow",
+      items: [
+        {
+          title: "Executions",
+          url: "#",
+          icon: PlayCircle,
+        },
+        {
+          title: "Rules",
+          url: "#",
+          icon: GitBranch,
+        },
+        {
+          title: "Processes",
+          url: "#",
+          icon: Workflow,
+        },
+      ]
+    },
+    {
+      title: "Models",
+      items: [
+        {
+          title: "Environments",
+          url: "#",
+          icon: Box,
+        },
+        {
+          title: "Fine tuning",
+          url: "#",
+          icon: Settings2,
+        },
+      ]
+    },
+  ],
 };
-
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-];
-
-// New data structures for additional groups
-const taskItems = [
-  {
-    title: "Interactions",
-    url: "#",
-    icon: MessageSquare,
-  },
-  {
-    title: "Prompts",
-    url: "#",
-    icon: MessageCircle,
-  },
-  {
-    title: "Runs",
-    url: "#",
-    icon: Play,
-  },
-];
-
-const contentItems = [
-  {
-    title: "Objects",
-    url: "#",
-    icon: Database,
-  },
-  {
-    title: "Types",
-    url: "#",
-    icon: FileType,
-  },
-];
-
-const workflowItems = [
-  {
-    title: "Executions",
-    url: "#",
-    icon: PlayCircle,
-  },
-  {
-    title: "Rules",
-    url: "#",
-    icon: GitBranch,
-  },
-  {
-    title: "Processes",
-    url: "#",
-    icon: Workflow,
-  },
-];
-
-const modelItems = [
-  {
-    title: "Environments",
-    url: "#",
-    icon: Box,
-  },
-  {
-    title: "Fine tuning",
-    url: "#",
-    icon: Settings2,
-  },
-];
 
 export function AppSidebar() {
   return (
@@ -145,95 +174,68 @@ export function AppSidebar() {
         <ProjectSwitcher projects={data.projects} />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          {/* <SidebarGroupLabel>Navigation</SidebarGroupLabel> */}
-          <SidebarGroupContent>
+        {data.navItems.map((group) => (
+          <SidebarGroup key={group.title}>
+            {group.title !== "Home" && (
+              <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
+            )}
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {group.title === "Home" ? (
+                <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <a href={group.url}>
+                      <Home />
+                      <span>{group.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+              ) : (
+                group.items?.map((item) => (
+                  <Collapsible
+                    key={item.title}
+                    asChild
+                    className="group/collapsible"
+                  >
+                    <SidebarMenuItem>
+                      {item.subItems ? (
+                        <>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton>
+                              <item.icon />
+                              <span>{item.title}</span>
+                              <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent>
+                            <SidebarMenuSub>
+                              {item.subItems.map((subItem) => (
+                                <SidebarMenuSubItem key={subItem.title}>
+                                  <SidebarMenuSubButton asChild>
+                                    <a href={subItem.url}>
+                                      <subItem.icon className="h-4 w-4" />
+                                      <span>{subItem.title}</span>
+                                    </a>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              ))}
+                            </SidebarMenuSub>
+                          </CollapsibleContent>
+                        </>
+                      ) : (
+                        <SidebarMenuButton asChild>
+                          <a href={item.url}>
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </a>
+                        </SidebarMenuButton>
+                      )}
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ))
+              )}
             </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Tasks</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {taskItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Content</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {contentItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Workflow</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {workflowItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Models</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {modelItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenuButton asChild>
