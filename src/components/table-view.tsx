@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Sparkles, ChevronDown, MoreHorizontal, Plus, Download } from "lucide-react"
+import { Sparkles, ChevronDown, MoreHorizontal } from "lucide-react"
 
 // Sample data for the table
 const data = [

@@ -1,8 +1,5 @@
 import {
-  Calendar,
   Home,
-  Inbox,
-  Search,
   Settings,
   MessageSquare,
   MessageCircle,
@@ -23,7 +20,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
