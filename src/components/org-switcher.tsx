@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
@@ -14,7 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar"
 
 export function OrgSwitcher({
@@ -25,7 +23,6 @@ export function OrgSwitcher({
     plan: string
   }[]
 }) {
-  const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
 
   return (
@@ -42,7 +39,7 @@ export function OrgSwitcher({
               </div> */}
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate text-xs">{activeTeam.plan}</span>
-                <span className="truncate font-semibold">
+                <span className="truncate font-medium">
                   {activeTeam.name}
                 </span>
               </div>
@@ -52,12 +49,12 @@ export function OrgSwitcher({
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             align="start"
-            side={isMobile ? "bottom" : "right"}
+            side="bottom"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-xs text-muted-foreground">
+            {/* <DropdownMenuLabel className="text-xs text-muted-foreground">
               Teams
-            </DropdownMenuLabel>
+            </DropdownMenuLabel> */}
             {teams.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}

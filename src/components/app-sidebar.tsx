@@ -35,7 +35,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { OrgSwitcher } from "./org-switcher";
-import { ProjectSwitcher } from "./project-switcher";
+import { ProjectSwitcherCombobox } from "./project-switcher-combobox";
 
 const data = {
   user: {
@@ -167,7 +167,8 @@ export function AppSidebar() {
     <Sidebar className="top-[--header-height] !h-[calc(100svh-var(--header-height))]">
       <SidebarHeader className="space-y-1">
         <OrgSwitcher teams={data.orgs} />
-        <ProjectSwitcher projects={data.projects} />
+        {/* <ProjectSwitcher projects={data.projects} /> */}
+        <ProjectSwitcherCombobox projects={data.projects} />
       </SidebarHeader>
       <SidebarContent>
         {data.navItems.map((group) => (

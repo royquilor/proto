@@ -88,16 +88,16 @@ export function TableView() {
   })
 
   return (
-    <div className="p-4">
+    <div className="py-4">
 
-      <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="relative w-full sm:w-64">
+      <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4">
+        <div className="relative w-full max-w-64">
           <Input
             type="text"
             placeholder={isAISearch ? "Ask anything..." : "Search..."}
             value={searchTerm}
             onChange={handleSearch}
-            className="pr-10"
+            className="h-8 pr-10"
           />
           <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-full" onClick={toggleAISearch}>
             <Sparkles className={`h-4 w-4 ${isAISearch ? "text-primary" : "text-muted-foreground"}`} />
@@ -106,12 +106,12 @@ export function TableView() {
         <div className="flex gap-2 w-full sm:w-auto">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 Filter <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs">Filter by Status</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setFilterOption("All")}>All</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setFilterOption("Active")}>Active</DropdownMenuItem>
@@ -120,12 +120,12 @@ export function TableView() {
           </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 Sort <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs">Sort by</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setSortOption("Name")}>Name</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setSortOption("Role")}>Role</DropdownMenuItem>
@@ -150,10 +150,10 @@ export function TableView() {
             {sortedData.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{item.name}</TableCell>
-                <TableCell>{item.email}</TableCell>
-                <TableCell>{item.role}</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell>{item.lastActive}</TableCell>
+                <TableCell className="text-ellipsis overflow-hidden text-muted-foreground">{item.email}</TableCell>
+                <TableCell className="text-muted-foreground">{item.role}</TableCell>
+                <TableCell className="text-muted-foreground">{item.status}</TableCell>
+                <TableCell className="text-muted-foreground">{item.lastActive}</TableCell>
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

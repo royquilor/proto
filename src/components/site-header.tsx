@@ -1,7 +1,7 @@
 import VertesiaLogo from "@/assets/Vertesia-Logo.svg";
 import { NavUser } from "@/components/nav-user";
 import { Badge } from "@/components/ui/badge";
-import { ProjectInfoDropdown } from "@/components/project-info-dropdown";
+import { ProjectInfoTabsDropdown } from "@/components/project-info-tabs-dropdown";
 
 export function SiteHeader() {
   return (
@@ -12,9 +12,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <img src={VertesiaLogo} alt="Vertesia Logo" className="h-5 w-auto" />
           <Badge variant="outline" className="text-xs font-medium px-1 py-0.5 leading-none">staging</Badge>
-          <ProjectInfoDropdown />
+          {/* <ProjectInfoDropdown /> */}
+          
         </div>
-        <NavUser />
+        <div className="flex items-center gap-3">
+          <ProjectInfoTabsDropdown />
+          <NavUser />
+        </div>
       </div>
     </header>
   );

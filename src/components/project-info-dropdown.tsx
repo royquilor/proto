@@ -61,7 +61,9 @@ const projectInfo = {
 export function ProjectInfoDropdown() {
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null)
 
-  const handleCopy = async (text: string, id: string) => {
+  const handleCopy = async (text: string, id: string, e: React.MouseEvent) => {
+    // Prevent event propagation to keep dropdown open
+    e.stopPropagation()
     await navigator.clipboard.writeText(text)
     setCopiedIndex(id)
     setTimeout(() => setCopiedIndex(null), 2000)
@@ -98,7 +100,7 @@ export function ProjectInfoDropdown() {
               variant="ghost"
               size="icon"
               className="h-8 w-8 ml-2"
-              onClick={() => handleCopy(item.description, `user-${index}`)}
+              onClick={(e) => handleCopy(item.description, `user-${index}`, e)}
             >
               {copiedIndex === `user-${index}` ? (
                 <Check className="h-4 w-4 text-green-500" />
@@ -128,7 +130,7 @@ export function ProjectInfoDropdown() {
               variant="ghost"
               size="icon"
               className="h-8 w-8 ml-2"
-              onClick={() => handleCopy(item.description, `env-${index}`)}
+              onClick={(e) => handleCopy(item.description, `env-${index}`, e)}
             >
               {copiedIndex === `env-${index}` ? (
                 <Check className="h-4 w-4 text-green-500" />
